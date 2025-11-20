@@ -4,7 +4,6 @@
 ''' 
 // =============================================================================
 // 程序基本说明（保持不变）
-python3 main.py --port /dev/ttyACM0 --bps 460800
 // =============================================================================
 '''	
 
@@ -75,12 +74,8 @@ def main_func(port, baudrate, dbg_flg):
 	count_222 = 0  # 统计连续打印"222"的次数
 	count_000 = 0
 	while True:
-		ep_led = ep_robot.led
-		ep_chassis = ep_robot.chassis
-
-		x_val = 0.3
-		y_val = 0.3
-		z_val = 90
+		# ep_led = ep_robot.led
+		
 		data = rd_data(ser)
 		num = len(data)
 		if(num > 0):
@@ -99,10 +94,7 @@ def main_func(port, baudrate, dbg_flg):
 					count_111 += 1
 					if count_111 == 8:
 						print("blue")
-						ep_led.set_led(comp='all', r=0, g=0, b=255, effect='on', freq=1)
-						ep_chassis.drive_speed(x=-x_val, y=0, z=0)
-
-
+						# ep_led.set_led(comp='all', r=0, g=0, b=255, effect='on', freq=1)
 						count_111 = 0  # 重置计数器，准备下一次连续触发
 				# 2. acc_x < -5：打印112，计数器累加，满8次输出red
 				elif yis_out['acc_x'] < -5:
@@ -110,9 +102,7 @@ def main_func(port, baudrate, dbg_flg):
 					count_112 += 1
 					if count_112 == 8:
 						print("red")
-						ep_led.set_led(comp='all', r=255, g=0, b=0, effect='on', freq=1)
-						ep_chassis.drive_speed(x=x_val, y=0, z=0)
-
+						# ep_led.set_led(comp='all', r=255, g=0, b=0, effect='on', freq=1)
 						count_112 = 0
 				# 3. acc_y > 5：打印221，计数器累加，满8次输出green
 				if yis_out['acc_y'] > 5:
@@ -120,8 +110,7 @@ def main_func(port, baudrate, dbg_flg):
 					count_221 += 1
 					if count_221 == 8:
 						print("green")
-						ep_led.set_led(comp='all', r=0, g=255, b=0, effect='on', freq=1)
-						ep_chassis.drive_speed(x=0, y=y_val, z=0)
+						# ep_led.set_led(comp='all', r=0, g=255, b=0, effect='on', freq=1)
 						count_221 = 0
 				# 4. acc_y < -5：打印222，计数器累加，满8次输出yellow
 				elif yis_out['acc_y'] < -5:
@@ -129,17 +118,14 @@ def main_func(port, baudrate, dbg_flg):
 					count_222 += 1
 					if count_222 == 8:
 						print("yellow")
-						ep_led.set_led(comp='all', r=200, g=100, b=0, effect='on', freq=1)
-						ep_chassis.drive_speed(x=0, y=-y_val, z=0)
+						# ep_led.set_led(comp='all', r=200, g=100, b=0, effect='on', freq=1)
 						count_222 = 0
 				if yis_out['acc_z'] > 10:
 					print("000")
 					count_000 += 1
 					if count_000 == 8:
 						print("white")
-						ep_led.set_led(comp='all', r=255, g=255, b=255, effect='on', freq=1)
-						ep_chassis.drive_speed(x=0, y=0, z=0, timeout=0.5)
-
+						# ep_led.set_led(comp='all', r=255, g=255, b=255, effect='on', freq=1)
 						count_000 = 0
 				''' 原四元数打印逻辑（保持注释或按需启用） '''
 				# if yis_out['acc_x'] > 5:
@@ -184,11 +170,11 @@ if __name__ == '__main__':
 	parse.add_argument('--bps', type=int, default=460800, help='The baud rate for the serial connection (default: 460800)')	
 	parse.add_argument('--dbg', action='store_true' , help='Enable logging for debugging  --dbg ')		
 	args = parse.parse_args()
-	ep_robot = robot.Robot()
-	ep_robot.initialize(conn_type="ap")
+	# ep_robot = robot.Robot()
+	# ep_robot.initialize(conn_type="ap")
 	main_func(args.port, args.bps, args.dbg)
 	
 
 
 	time.sleep(5)
-	ep_robot.close()
+	# ep_robot.close()
