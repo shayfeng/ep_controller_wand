@@ -9,6 +9,10 @@
 python >= 3.8.0
 pyserial >= 3.4 #### 如需要安装可以使用命令'pip install pyserial'
 
+
+https://github.com/user-attachments/assets/e2c9b08d-88c2-4c57-854e-72b44f5ec841
+
+
 2.2、测试环境说明
 
 ##################################
@@ -93,4 +97,5 @@ yis_out['minute']:		分
 yis_out['second']:		秒
 yis_out['smp_timestamp']:	采样时间戳
 yis_out['ready_timestamp']:	数据完成时间戳
+
 yis_out['status']:0			组合导航状态
